@@ -20,7 +20,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
-public class MyGdxGame extends ApplicationAdapter {
+public class 	MyGdxGame extends ApplicationAdapter {
 	private static final float PLANE_JUMP_IMPULSE = 350;
 	private static final float GRAVITY = -20;
 	private static final float PLANE_VELOCITY_X = 200;

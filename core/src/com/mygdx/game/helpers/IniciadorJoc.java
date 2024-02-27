@@ -9,6 +9,8 @@ public class IniciadorJoc extends Game {
 
     private SpriteBatch batch;
     private BitmapFont font;
+    private boolean musicOn = true; // Añade un campo para el estado de la música
+    private String difficulty = "Fácil"; // Añade un campo para la dificultad
 
     @Override
     public void create() {
@@ -27,7 +29,27 @@ public class IniciadorJoc extends Game {
     public SpriteBatch getBatch() {
         return batch;
     }
+
     public BitmapFont getFont() {
         return font;
     }
+
+    // Añade los métodos para obtener y establecer el estado de la música
+    public boolean isMusicOn() {
+        return musicOn;
+    }
+
+    public void setMusicOn(boolean musicOn) {
+        this.musicOn = musicOn;
+    }
+
+    // Añade los métodos para obtener y establecer la dificultad
+    public String getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(String difficulty) {
+        this.difficulty = difficulty;
+    }
 }
+
