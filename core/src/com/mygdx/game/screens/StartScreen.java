@@ -3,8 +3,10 @@ package com.mygdx.game.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -38,18 +40,18 @@ public class StartScreen implements Screen {
         TextButton startButton = new TextButton("Començar joc", skin.get("small", TextButton.TextButtonStyle.class));
         startButton.setPosition(Gdx.graphics.getWidth() / 2 - startButton.getWidth() / 2, Gdx.graphics.getHeight() / 2);
 
-        startButton.addListener(new ClickListener() {
+        startButton.addListener(new ChangeListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y) {
+            public void changed(ChangeEvent event, Actor actor) {
                 game.setScreen(new GameScreen(game));
             }
         });
 
         TextButton optionsButton = new TextButton("Opcions", skin.get("small", TextButton.TextButtonStyle.class));
         optionsButton.setPosition(Gdx.graphics.getWidth() / 2 - optionsButton.getWidth() / 2, Gdx.graphics.getHeight() / 2 - startButton.getHeight() - 10); // Reduce el espacio entre los botone
-        optionsButton.addListener(new ClickListener() {
+        optionsButton.addListener(new ChangeListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y) {
+            public void changed(ChangeEvent event, com.badlogic.gdx.scenes.scene2d.Actor actor) {
                 game.setScreen(new OptionsScreen(game));
             }
         });
@@ -107,13 +109,15 @@ public class StartScreen implements Screen {
 
     @Override
     public void hide() {
-
+        stage.clear();
     }
 
     // Asegúrate de llamar a stage.dispose() y batch.dispose() en el método dispose()
     @Override
     public void dispose() {
         stage.dispose();
+        stage.clear();
+
         batch.dispose();
         backgroundTexture.dispose();
     }
