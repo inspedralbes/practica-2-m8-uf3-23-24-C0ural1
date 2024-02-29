@@ -14,11 +14,13 @@ public class PlaneActor extends Actor {
     private long lastJumpTime;
     private boolean isJumping;
 
+    Rectangle rect1 = new Rectangle();
+    Rectangle rect2 = new Rectangle();
 
 
     public PlaneActor() {
         planeTexture = new TextureRegion(new Texture("plane1.png"));
-        planeRectangle = new Rectangle(50, 240, planeTexture.getRegionWidth(), planeTexture.getRegionHeight());
+        planeRectangle = new Rectangle(50, 240, planeTexture.getRegionWidth(), planeTexture.getRegionHeight()); // Ajusta el tamaño y la posición del avión
         lastJumpTime = System.currentTimeMillis();
         isJumping = false;
     }

@@ -58,7 +58,8 @@ public class GameScreen implements Screen {
 
         // Check for rock spawn and generate a new rock
         if (rockSpawnTimer <= 0) {
-            RockActor newRock = new RockActor(Gdx.graphics.getWidth(), MathUtils.random(ROCK_SPAWN_MIN_HEIGHT, ROCK_SPAWN_MAX_HEIGHT));
+            boolean isDown = MathUtils.randomBoolean();
+            RockActor newRock = new RockActor(Gdx.graphics.getWidth(), isDown ? 0 : Gdx.graphics.getHeight() - ROCK_SPAWN_MIN_HEIGHT - planeActor.getPlaneTexture().getRegionHeight(), !isDown);
             rocks.add(newRock);
             rockSpawnTimer = MathUtils.random(ROCK_SPAWN_INTERVAL_MIN, ROCK_SPAWN_INTERVAL_MAX);
         } else {
@@ -122,6 +123,8 @@ public class GameScreen implements Screen {
         ceiling.getTexture().dispose();
     }
 }
+
+
 
 
 

@@ -37,7 +37,7 @@ public class StartScreen implements Screen {
         backgroundSprite2 = new Sprite(backgroundTexture);
         backgroundSprite2.setX(backgroundSprite1.getWidth());
 
-        TextButton startButton = new TextButton("Començar joc", skin.get("small", TextButton.TextButtonStyle.class));
+        TextButton startButton = new TextButton("Jugar", skin.get("small", TextButton.TextButtonStyle.class));
         startButton.setPosition(Gdx.graphics.getWidth() / 2 - startButton.getWidth() / 2, Gdx.graphics.getHeight() / 2);
 
         startButton.addListener(new ChangeListener() {
