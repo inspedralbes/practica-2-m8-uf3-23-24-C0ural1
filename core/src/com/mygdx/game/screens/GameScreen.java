@@ -1,6 +1,7 @@
 package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -11,6 +12,7 @@ import com.mygdx.game.actors.RockActor;
 import com.mygdx.game.helpers.IniciadorJoc;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.helpers.InputHandler;
 
 
 public class GameScreen implements Screen {
@@ -41,6 +43,10 @@ public class GameScreen implements Screen {
         batch = new SpriteBatch();
         backgroundTexture = new TextureRegion(new Texture("background.png"));
         planeActor = new PlaneActor();
+        //Input
+        InputHandler inputHandler = new InputHandler(planeActor);
+        Gdx.input.setInputProcessor(inputHandler);
+
         rocks = new Array<RockActor>();
         score = 0;
         ground = new TextureRegion(new Texture("ground.png"));
@@ -93,7 +99,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        // Not implemented
+        //stage.getViewport().update(width, height, true)
     }
 
     @Override
