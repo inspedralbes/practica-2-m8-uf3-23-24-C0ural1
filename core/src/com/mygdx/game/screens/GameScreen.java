@@ -7,12 +7,14 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.actors.EnemyActor;
 import com.mygdx.game.actors.PlaneActor;
 import com.mygdx.game.actors.RockActor;
 import com.mygdx.game.helpers.IniciadorJoc;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.helpers.InputHandler;
+import com.mygdx.game.helpers.AssetsMannager;
 
 
 public class GameScreen implements Screen {
@@ -33,6 +35,15 @@ public class GameScreen implements Screen {
     private static final int ROCK_SPAWN_MIN_HEIGHT = 100;
     private static final int ROCK_SPAWN_MAX_HEIGHT = 300;
 
+    private static final float ENEMY_SPAWN_INTERVAL_MIN = 1.5f;
+    private static final float ENEMY_SPAWN_INTERVAL_MAX = 3.0f;
+
+    float enemySpawnTimer = 0;
+
+    private static final float ENEMY_SPEED = 200; // Ajusta esto a la velocidad que desees
+    private Array<EnemyActor> enemies;
+
+
     public GameScreen(final IniciadorJoc game) {
         this.game = game;
         rockSpawnTimer = MathUtils.random(ROCK_SPAWN_INTERVAL_MIN, ROCK_SPAWN_INTERVAL_MAX);
@@ -41,7 +52,9 @@ public class GameScreen implements Screen {
     @Override
     public void show() {
         batch = new SpriteBatch();
-        backgroundTexture = new TextureRegion(new Texture("background.png"));
+        AssetsMannager.load();
+        backgroundTexture = new TextureRegion(AssetsMannager.getBackgroundTexture());
+        ground = new TextureRegion(AssetsMannager.getGroundTexture());
         planeActor = new PlaneActor();
         //Input
         InputHandler inputHandler = new InputHandler(planeActor);
@@ -49,9 +62,9 @@ public class GameScreen implements Screen {
 
         rocks = new Array<RockActor>();
         score = 0;
-        ground = new TextureRegion(new Texture("ground.png"));
         ceiling = new TextureRegion(ground);
         ceiling.flip(true, true);
+        enemies = new Array<EnemyActor>();
     }
 
     @Override
@@ -72,10 +85,25 @@ public class GameScreen implements Screen {
             rockSpawnTimer -= delta;
         }
 
+        if (enemySpawnTimer <= 0) {
+            int x = Gdx.graphics.getWidth(); // Aparece desde la derecha
+            int y = MathUtils.random(0, Gdx.graphics.getHeight() - new Texture("enemy.png").getHeight());
+            EnemyActor newEnemy = new EnemyActor(x, y, ENEMY_SPEED);
+            enemies.add(newEnemy);
+            enemySpawnTimer = MathUtils.random(ENEMY_SPAWN_INTERVAL_MIN, ENEMY_SPAWN_INTERVAL_MAX);
+        } else {
+            enemySpawnTimer -= delta;
+        }
+
         // Update and draw rocks
         for (RockActor rock : rocks) {
             rock.act(delta);
             batch.draw(rock.getRockTexture(), rock.getRockRectangle().x, rock.getRockRectangle().y);
+        }
+
+        for (EnemyActor enemy : enemies) {
+            enemy.act(delta);
+            batch.draw(enemy.getEnemyTextureRegion(), enemy.getEnemyRectangle().x, enemy.getEnemyRectangle().y);
         }
 
         // Update and draw plane
@@ -85,6 +113,13 @@ public class GameScreen implements Screen {
         // Check for collisions
         for (RockActor rock : rocks) {
             if (rock.getRockRectangle().overlaps(planeActor.getPlaneRectangle())) {
+                game.setScreen(new EndScreen(game, score));
+                break;
+            }
+        }
+
+        for (EnemyActor enemy : enemies) {
+            if (enemy.getEnemyRectangle().overlaps(planeActor.getPlaneRectangle())) {
                 game.setScreen(new EndScreen(game, score));
                 break;
             }
@@ -127,6 +162,7 @@ public class GameScreen implements Screen {
         }
         ground.getTexture().dispose();
         ceiling.getTexture().dispose();
+        AssetsMannager.dispose();
     }
 }
 

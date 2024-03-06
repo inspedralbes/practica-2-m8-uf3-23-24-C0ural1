@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.mygdx.game.helpers.AssetsMannager;
 
 public class PlaneActor extends Actor {
 
@@ -19,23 +20,33 @@ public class PlaneActor extends Actor {
     private float elapsedTime;
 
     public PlaneActor() {
-        planeTexture = new TextureRegion(new Texture("plane1.png"));
+        TextureRegion planeTexture = new TextureRegion(AssetsMannager.getPlaneTexture());
         planeRectangle = new Rectangle(50, 240, planeTexture.getRegionWidth(), planeTexture.getRegionHeight()); // Ajusta el tamaño y la posición del avión
         lastJumpTime = System.currentTimeMillis();
         isJumping = false;
 
-        Texture frame1 = new Texture("plane1.png");
-        frame1.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        Texture frame2 = new Texture("plane2.png");
-        frame2.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        Texture frame3 = new Texture("plane3.png");
-        frame3.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        Texture frame1 = AssetsMannager.getPlaneTexture();
+        Texture frame2 = AssetsMannager.getPlaneTexture2();
+        Texture frame3 = AssetsMannager.getPlaneTexture3();
 
+        // Crear los TextureRegion utilizando las texturas cargadas
+        TextureRegion planeTextureRegion = new TextureRegion(planeTexture);
+        TextureRegion frame1Region = new TextureRegion(frame1);
+        TextureRegion frame2Region = new TextureRegion(frame2);
+        TextureRegion frame3Region = new TextureRegion(frame3);
+
+        // Establecer filtro para los TextureRegion
+        planeTextureRegion.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        frame1Region.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        frame2Region.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        frame3Region.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
+        // Configurar la animación
         planeAnimation = new Animation<TextureRegion>(0.05f,
-                new TextureRegion(frame1),
-                new TextureRegion(frame2),
-                new TextureRegion(frame3),
-                new TextureRegion(frame2)
+                frame1Region,
+                frame2Region,
+                frame3Region,
+                frame2Region
         );
 
         planeAnimation.setPlayMode(Animation.PlayMode.LOOP);

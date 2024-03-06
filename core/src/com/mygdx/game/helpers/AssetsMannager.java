@@ -1,47 +1,74 @@
 package com.mygdx.game.helpers;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class AssetsMannager {
 
-    private static final AssetsMannager instance = new AssetsMannager();
+    private static AssetManager assetManager = new AssetManager();
+    private static Texture planeTexture;
+    private static Texture planeTexture2;
+    private static Texture planeTexture3;
+    private static Texture backgroundTexture;
+    private static Texture groundTexture;
 
-    public AssetsMannager() {
+    private static Texture enemic;
+
+    public static TextureRegion bird, birdDown, birdUp;
+    private static Texture TorreTexture;
+
+    // Método para cargar los activos
+    public static void load() {
+        assetManager.load("plane1.png", Texture.class);
+        assetManager.load("plane2.png", Texture.class);
+        assetManager.load("plane3.png", Texture.class);
+        assetManager.load("background.png", Texture.class);
+        assetManager.load("ground.png", Texture.class);
+        assetManager.load("torre4.png", Texture.class);
+        assetManager.load("enemy.png", Texture.class);
+
+        assetManager.finishLoading();
+
+        planeTexture = assetManager.get("plane1.png", Texture.class);
+        planeTexture2 = assetManager.get("plane2.png", Texture.class);
+        planeTexture3 = assetManager.get("plane3.png", Texture.class);
+        backgroundTexture = assetManager.get("background.png", Texture.class);
+        groundTexture = assetManager.get("ground.png", Texture.class);
+        TorreTexture = assetManager.get("torre4.png", Texture.class);
+        enemic = assetManager.get("enemy.png", Texture.class);
+
+
+
     }
 
-    public static void load() {/*
-        instance.manager.load("sonic.png", Texture.class);
-        instance.manager.load("monstruo.png", Texture.class);
-        instance.manager.load("fons.png", Texture.class);
-        instance.manager.load("sonicMusica.mp3", Music.class);
-        instance.manager.load("perdervida.mp3", Music.class);
+    public static Texture getPlaneTexture() {
+        return planeTexture;
+    }
+    public static Texture getPlaneTexture2() {
+        return planeTexture2;
+    }
+    public static Texture getPlaneTexture3() {
+        return planeTexture3;
+    }
+    public static Texture getBackgroundTexture() {
+        return backgroundTexture;
+    }
 
+    public static Texture getGroundTexture() {
+        return groundTexture;
+    }
+    public static Texture getEnemicTexture() {
+        return enemic;
+    }
 
-        instance.manager.finishLoading(); //*/
+    public static Texture getTorreTexture() {
+        return TorreTexture;
     }
 
     public static void dispose() {
+        assetManager.dispose();
     }
-
-    /*public static Texture getPersonajeTexture() {
-        return instance.manager.get("sonic.png", Texture.class);
-    }
-
-    public static Texture getMonsterTexture() {
-        return instance.manager.get("monstruo.png", Texture.class);
-    }
-
-    public static Texture getFons() {
-        return instance.manager.get("fons.png", Texture.class);
-    }
-
-    public static Music getMusicaSonic() {
-        return instance.manager.get("sonicMusica.mp3", Music.class);
-    }
-
-    public static Music getPerdreVida() {
-        return instance.manager.get("perdervida.mp3", Music.class);
-    }*/
-
 }

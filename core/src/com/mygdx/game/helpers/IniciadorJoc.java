@@ -16,7 +16,6 @@ public class IniciadorJoc extends Game {
     public void create() {
         batch = new SpriteBatch();
         font = new BitmapFont();
-        AssetsMannager.load();
         setScreen(new StartScreen(this));
     }
 
