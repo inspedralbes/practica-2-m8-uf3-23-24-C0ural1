@@ -17,8 +17,12 @@ public class AssetsMannager {
 
     private static Texture enemic;
 
-    public static TextureRegion bird, birdDown, birdUp;
+
     private static Texture TorreTexture;
+
+    private static Texture enemyTexture;
+
+    public static Music music;
 
     // Método para cargar los activos
     public static void load() {
@@ -29,6 +33,7 @@ public class AssetsMannager {
         assetManager.load("ground.png", Texture.class);
         assetManager.load("torre4.png", Texture.class);
         assetManager.load("enemy.png", Texture.class);
+        assetManager.load("enemy3.png", Texture.class);
 
         assetManager.finishLoading();
 
@@ -39,7 +44,11 @@ public class AssetsMannager {
         groundTexture = assetManager.get("ground.png", Texture.class);
         TorreTexture = assetManager.get("torre4.png", Texture.class);
         enemic = assetManager.get("enemy.png", Texture.class);
+        enemyTexture = assetManager.get("enemy3.png", Texture.class);
 
+
+        music = Gdx.audio.newMusic(Gdx.files.internal("musica/music.mp3"));
+        music.setVolume(0.2f);
 
 
     }
@@ -70,5 +79,9 @@ public class AssetsMannager {
 
     public static void dispose() {
         assetManager.dispose();
+    }
+
+    public static Texture getEnemyTexture() {
+        return enemyTexture;
     }
 }

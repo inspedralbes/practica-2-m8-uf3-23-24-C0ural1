@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.graphics.Texture;
 
 import com.badlogic.gdx.math.Rectangle;
+import com.mygdx.game.helpers.AssetsMannager;
 
 
 public class EnemyActor extends Actor {
@@ -17,7 +18,7 @@ public class EnemyActor extends Actor {
     public EnemyActor(int x, int y, float speed) {
         this.speed = speed;
 
-        enemyTexture = new TextureRegion(new Texture("enemy3.png"));
+        enemyTexture = new TextureRegion(AssetsMannager.getEnemyTexture());
 
         enemyRectangle = new Rectangle(x, y, enemyTexture.getRegionWidth(), enemyTexture.getRegionHeight());
     }

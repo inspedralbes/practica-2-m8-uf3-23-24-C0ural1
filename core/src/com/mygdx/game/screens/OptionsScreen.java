@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.mygdx.game.helpers.AssetsMannager;
 import com.mygdx.game.helpers.IniciadorJoc;
 
 public class OptionsScreen implements Screen {
@@ -37,6 +38,7 @@ public class OptionsScreen implements Screen {
                 game.setMusicOn(musicCheckBox.isChecked());
             }
         });
+
 
         Label difficultyLabel = new Label("Canviar Dificultat: ", skin);
         difficultyLabel.setPosition(200, 260);

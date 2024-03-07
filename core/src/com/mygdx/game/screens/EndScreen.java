@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -23,6 +24,7 @@ public class EndScreen implements Screen {
     private Texture backgroundTexture;
     private Sprite backgroundSprite1, backgroundSprite2;
     private int score;
+    private BitmapFont bigFont;
 
     public EndScreen(final IniciadorJoc game, int score) {
         this.game = game;
@@ -30,6 +32,8 @@ public class EndScreen implements Screen {
         this.stage = new Stage(new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
         this.batch = new SpriteBatch();
         Gdx.input.setInputProcessor(stage);
+        bigFont = new BitmapFont();
+        bigFont.getData().setScale(3); // Ajusta el tamaño de la fuente a tu gusto
 
         // Cargar el fondo
         backgroundTexture = new Texture(Gdx.files.internal("background.png"));
@@ -38,6 +42,8 @@ public class EndScreen implements Screen {
         backgroundSprite2.setX(backgroundSprite1.getWidth());
 
         Skin skin = new Skin(Gdx.files.internal("skin/glassy-ui.json"));
+
+        bigFont = skin.getFont("font-big");
 
 
         TextButton retryButton = new TextButton("Jugar de nou", skin.get("small", TextButton.TextButtonStyle.class));
@@ -97,6 +103,8 @@ public class EndScreen implements Screen {
         stage.draw();
 
         batch.begin();
+        bigFont.draw(batch, "Score: " + score, Gdx.graphics.getWidth() / 2 - 100, Gdx.graphics.getHeight() / 2 + 200);
+
         //font.draw(batch, "Game Over", Gdx.graphics.getWidth() / 2 - 100, Gdx.graphics.getHeight() / 2 + 50);
         //font.draw(batch, "Score: " + score, Gdx.graphics.getWidth() / 2 - 50, Gdx.graphics.getHeight() / 2);
         batch.end();
@@ -130,6 +138,4 @@ public class EndScreen implements Screen {
         batch.dispose();
         backgroundTexture.dispose();
     }
-
-    // ... el resto de tus métodos aquí ...
 }
